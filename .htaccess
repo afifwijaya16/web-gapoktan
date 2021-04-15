@@ -1,0 +1,12 @@
+RewriteEngine On
+
+<IfModule mod_rewrite.c>
+    RewriteCond %{REQUEST_FILENAME} !-f	
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteRule ^.+$ ./system/shl_core.php [L]
+    
+    RewriteRule    ^$    ./system/shl_core.php/$1;    [L]
+    #RewriteRule   (.*) ./system/shl_core.php/$1    [L]
+ 
+
+ </IfModule>
