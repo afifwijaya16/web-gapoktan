@@ -132,7 +132,11 @@ function getBulan($bln){
 				],
 				datasets: [{
 					label: '',
-					data: [ <?php $surat = mysqli_query($koneksi,"SELECT SUM(grandtotal) as total, tgl_transaksi   FROM transaksi WHERE MONTH(tgl_transaksi) BETWEEN '$_POST[dari_bulan]' AND '$_POST[sampai_bulan]' AND YEAR(tgl_transaksi)='$_POST[tahun]'  GROUP BY MONTH(tgl_transaksi)");
+					data: [
+
+
+					<?php 
+					$surat = mysqli_query($koneksi,"SELECT SUM(grandtotal) as total, tgl_transaksi   FROM transaksi WHERE MONTH(tgl_transaksi) BETWEEN '$_POST[dari_bulan]' AND '$_POST[sampai_bulan]' AND YEAR(tgl_transaksi)='$_POST[tahun]'  GROUP BY MONTH(tgl_transaksi)");
 					while($row=mysqli_fetch_array($surat)){	?> 
 
 					<?=$row['total'];?>,

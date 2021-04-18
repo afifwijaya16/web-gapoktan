@@ -2,73 +2,49 @@
 ob_start();
 ?>
 <!--\\\\\\\ contentpanel start\\\\\\-->
-<div class="pull-left breadcrumb_admin clear_both">
-    <div class="pull-left page_title theme_color">
+<section class="content-header">
+    <h1>
+        Data Galery
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="<?=base_url();?>/resources/admin/#"><i class="fa fa-dashboard"></i> Galery</a></li>
+    </ol>
+</section>
+<section class="content">
+    <?php if (empty($act)) { ?>
+    
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Data Galery</h3>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 pull-right">
+                    <div class="form-group search_group pull-right">
 
-    </div>
-    <div class="pull-right">
-        <ol class="breadcrumb">
-            <li><a href="<?=base_url();?>/administrator/dashboard">Home</a></li>
-            <li class="active">Data Galery</li>
-        </ol>
-    </div>
-</div>
-<div class="container clear_both padding_fix">
-    <?php
-    if (empty($act))
-    {
-    ?>
-    <!--\\\\\\\ container  start \\\\\\-->
-    <div class="row">
-        <div class="col-lg-12">
-            <section class="panel default blue_title h2">
-                <div class="panel-heading"><span class="semi-bold">Data Galery</span> </div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <form method="get" action="<?=base_url();?>/administrator/general/galery/search">
-                                <div class="form-group search_group ">
-                                    <input type="text" name="s" class="form-control" placeholder="Search..." />
-                                    <span class=""><button class="btn btn-primary btn_space" type="submit"><i
-                                                class="fa fa-search"></i> Search</button></span>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="col-sm-4 pull-right">
-                            <div class="form-group search_group pull-right">
-
-                                <a href="<?=base_url();?>/administrator/general/galery/tambah"
-                                    class="btn btn-primary"><i class="fa fa-plus"></i> Tambah</a>
-                            </div>
-                        </div>
+                        <a href="<?=base_url();?>/administrator/general/galery/tambah" class="btn btn-primary"><i
+                                class="fa fa-plus"></i> Tambah</a>
                     </div>
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Judul</th>
-                                <th>Kategori</th>
-                                <th>Tanggal</th>
+                </div>
+            </div>
+            <div class="box-body">
+                <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Judul</th>
+                            <th>Kategori</th>
+                            <th>Tanggal</th> 
+                            <th>Action </th>
+                        </tr>
+                    </thead>
 
-
-                                <th colspan="2">
-                                    <center>Action</center>
-                                </th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <?php
-                            $no = 0;
-                            foreach ($galery as $row)
-                            {
-                            $no++;
-                            ?>
+                    <tbody>
+                        <?php $no = 0; foreach ($galery as $row) { $no++; ?>
                             <tr>
                                 <td><?=$no;?></td>
                                 <td><?=$row['judul'];?></td>
                                 <td><?php $tgl = explode(" ",$row['tgl_posting']);
-                                    echo tgl_indo($tgl[0]);?>
+                                echo tgl_indo($tgl[0]);?>
                                 </td>
 
                                 <td align="center"><a
@@ -78,18 +54,12 @@ ob_start();
                                         href="<?=base_url();?>/administrator/general/galery/hapus/<?=$row['id_galery'];?>"
                                         class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i> Hapus</a></td>
                             </tr>
-                            <?php } ?>
-                        </tbody>
-
-
-                    </table>
-                    <div class="pull-right">
-                        <?=shl_pagination::create_link();?>
-                    </div>
-                </div>
-            </section>
+                        <?php } ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </div>
+    
     <?php
     }
     else if ($act == "tambah")
@@ -234,5 +204,6 @@ ob_start();
     <?php
     }
     ?>
-</div>
+</section>
+
 <?php shl_view::layout("administrator/ultimo/index", ob_get_clean());?>

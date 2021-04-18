@@ -158,7 +158,7 @@
 							<ul class="nav">
 									<li><a href="<?=base_url();?>">Home</a></li>
 									<li><a href="<?=base_url();?>/front/general/statis/tentangkami">Tentang Kami</a></li>									
-									<li><a href="<?=base_url();?>/front/general/statis/kategori/?id=Paket">Promosi</a></li>
+									<li><a href="<?=base_url();?>/front/general/statis/promosi_produk">Promosi</a></li>
 									<?php  if (shl_session::get("status") == 'Reseller') { ?> 
 									<li><a href="<?=base_url();?>/front/general/statis/kategori/?id=Reseller"> Reseller</a></li>
 									<?php };?>

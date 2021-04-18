@@ -77,6 +77,22 @@ class statis extends shl_controller
 		shl_loader::view("front/exception/general/produk", self::$data);
 	}
 
+	function promosi_produk()
+	{
+
+		if (empty($datasource))
+		{
+			$datasource = m_statis::get_data();
+		}
+
+		$page = input_get("page");
+		$page = (empty($page)) ? "1" : $page;
+		self::$data['statis'] = shl_pagination::page($page)
+											 ->paginate($datasource);
+
+		shl_loader::view("front/exception/general/promosi", self::$data);
+	}
+
 
 	function detail_produk()
 	{
