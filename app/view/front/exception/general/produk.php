@@ -9,7 +9,7 @@ ob_start();
 					<div class="container">
 						<!-- Wellcome text -->
 						<div class="text-center bottom-space">
-							<h1 class="size-lg no-padding">Produk <span class="logo-font custom-color"><?=$_GET[id];?></span> Kami</h1>
+							<h1 class="size-lg no-padding">Produk <span style="color:blue;"><?=$_GET[id];?></span> Kami</h1>
 							<div class="line-divider"></div>
 							</p>
 						</div>
