@@ -2,6 +2,18 @@
 class m_statis extends shl_model
 {
 	// Menampilkan informasi seperti profil, visi dan misi, dst
+	static $table;
+
+	function __construct()
+	{
+		self::$table = shl_db::table("statis");
+	}
+	
+	static function get_data()
+	{
+		return self::$table;
+	}
+
 	static function get_detail($judul_seo)
 	{
 		return shl_db::table("halamanstatis")

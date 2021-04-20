@@ -3,7 +3,7 @@ class statis extends shl_controller
 {
 	function __construct()
 	{
-		shl_loader::model("administrator/general/m_statis");
+		shl_loader::model("front/general/m_statis");
 	}
 
 	function detail()
