@@ -12,8 +12,6 @@
 	</div>
 	<div class="row">
 		<?php $no = 0; foreach ($statis as $row) { $no++; ?>
-		<div class="row">
-            <!-- Center column -->
             <div class="col-md-6">
                 <div class="blog-post">
                     <div class="blog-content">
@@ -23,7 +21,7 @@
 							<div class="box-body">
 								<div class="row">
 									<div class="col-md-6">
-										<img src="<?=base_url();?>/resources/public/images/<?php echo $row['gambar'];?>" style="width:100%">
+										<img src="<?=base_url();?>/resources/public/images/<?php echo $row['gambar'];?>" style="height:200px;width:100%">
 									</div>
 									<div class="col-md-6">
 										<p class="card-text"><?php echo $row['isi_halaman'];?></p>
@@ -34,7 +32,6 @@
                     </div>
                 </div>
             </div>
-        </div>
 		<?php } ?>
 	</div>
 </main>
