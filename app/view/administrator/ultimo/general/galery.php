@@ -12,54 +12,54 @@ ob_start();
 </section>
 <section class="content">
     <?php if (empty($act)) { ?>
-    
-        <div class="box">
-            <div class="box-header">
-                <h3 class="box-title">Data Galery</h3>
-            </div>
-            <div class="row">
-                <div class="col-sm-4 pull-right">
-                    <div class="form-group search_group pull-right">
 
-                        <a href="<?=base_url();?>/administrator/general/galery/tambah" class="btn btn-primary"><i
-                                class="fa fa-plus"></i> Tambah</a>
-                    </div>
+    <div class="box">
+        <div class="box-header">
+            <h3 class="box-title">Data Galery</h3>
+        </div>
+        <div class="row">
+            <div class="col-sm-4 pull-right">
+                <div class="form-group search_group pull-right">
+
+                    <a href="<?=base_url();?>/administrator/general/galery/tambah" class="btn btn-primary"><i
+                            class="fa fa-plus"></i> Tambah</a>
                 </div>
             </div>
-            <div class="box-body">
-                <table id="example1" class="table table-bordered table-striped">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Judul</th>
-                            <th>Kategori</th>
-                            <th>Tanggal</th> 
-                            <th>Action </th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <?php $no = 0; foreach ($galery as $row) { $no++; ?>
-                            <tr>
-                                <td><?=$no;?></td>
-                                <td><?=$row['judul'];?></td>
-                                <td><?php $tgl = explode(" ",$row['tgl_posting']);
-                                echo tgl_indo($tgl[0]);?>
-                                </td>
-
-                                <td align="center"><a
-                                        href="<?=base_url();?>/administrator/general/galery/perbaiki/<?=$row['id_galery'];?>"
-                                        class="btn btn-warning btn-sm"><i class="fa fa-edit"></i> Edit</a></td>
-                                <td align="center"><a
-                                        href="<?=base_url();?>/administrator/general/galery/hapus/<?=$row['id_galery'];?>"
-                                        class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i> Hapus</a></td>
-                            </tr>
-                        <?php } ?>
-                    </tbody>
-                </table>
-            </div>
         </div>
-    
+        <div class="box-body">
+            <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Judul</th>
+                        <th>Kategori</th>
+                        <th>Tanggal</th>
+                        <th>Action </th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <?php $no = 0; foreach ($galery as $row) { $no++; ?>
+                    <tr>
+                        <td><?=$no;?></td>
+                        <td><?=$row['judul'];?></td>
+                        <td><?php $tgl = explode(" ",$row['tgl_posting']);
+                                echo tgl_indo($tgl[0]);?>
+                        </td>
+
+                        <td align="center"><a
+                                href="<?=base_url();?>/administrator/general/galery/perbaiki/<?=$row['id_galery'];?>"
+                                class="btn btn-warning btn-sm"><i class="fa fa-edit"></i> Edit</a></td>
+                        <td align="center"><a
+                                href="<?=base_url();?>/administrator/general/galery/hapus/<?=$row['id_galery'];?>"
+                                class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i> Hapus</a></td>
+                    </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
     <?php
     }
     else if ($act == "tambah")

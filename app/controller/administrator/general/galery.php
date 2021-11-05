@@ -50,7 +50,7 @@ class galery extends shl_controller
         		->rule("isi_galery","required", "Isi galery");
         
         shl_upload::input_name("gambar")
-        		  ->path("../resources/public/images/");
+        		  ->path("../../resources/public/images/");
 
         if (shl_form::is_valid())
         {

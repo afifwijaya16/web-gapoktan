@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
 <?php
 function getBulan($bln){
     switch ($bln){
@@ -48,45 +50,76 @@ function getBulan($bln){
 
 
 ?>
-<html>
-<head>
-	<title>GRAFIK PENJUALAN</title>
-	<script type="text/javascript" src="chartjs/Chart.js"></script>
-</head>
-<body>
-	<style type="text/css">
-	body{
-		font-family: roboto;
-	}
 
-	table{
-		margin: 0px auto;
-	}
-	</style>
-
-
-	<center>
-		<h2>GRAFIK PENJUALAN </h2>
-	</center>
-
-
-	<?php 
+<?php 
 	include 'koneksi.php';
 	?>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #container {
+            height: 400px; 
+        }
 
-	<div style="width: 800px;margin: 0px auto;">
-		<canvas id="myChart"></canvas>
-	</div>
+        .highcharts-figure, .highcharts-data-table table {
+            min-width: 320px; 
+            max-width: 800px;
+            margin: 1em auto;
+        }
 
-	<br/>
-	<br/>
+        .highcharts-data-table table {
+            font-family: Verdana, sans-serif;
+            border-collapse: collapse;
+            border: 1px solid #EBEBEB;
+            margin: 10px auto;
+            text-align: center;
+            width: 100%;
+            max-width: 500px;
+        }
+        .highcharts-data-table caption {
+            padding: 1em 0;
+            font-size: 1.2em;
+            color: #555;
+        }
+        .highcharts-data-table th {
+            font-weight: 600;
+            padding: 0.5em;
+        }
+        .highcharts-data-table td, .highcharts-data-table th, .highcharts-data-table caption {
+            padding: 0.5em;
+        }
+        .highcharts-data-table thead tr, .highcharts-data-table tr:nth-child(even) {
+            background: #f8f8f8;
+        }
+        .highcharts-data-table tr:hover {
+            background: #f1f7ff;
+        }
+        table{
+            margin: 0px auto;
+        }
+    </style>
+</head>
+<body>
+    <figure class="highcharts-figure">
+        <div id="container"></div>
+        <!-- <p class="highcharts-description">
+            Chart with buttons to modify options, showing how options can be changed
+            on the fly. This flexibility allows for more dynamic charts.
+        </p> -->
 
-	<table border="1">
+        <button id="plain">Plain</button>
+        <button id="inverted">Inverted</button>
+        <button id="polar">Polar</button>
+    </figure>
+    <div>
+    <table border="1">
 		<thead>
 			<tr>
 				<th>No</th>
 				<th>Bulan/Tahun</th>
-				<th>Total</th>
+				<th>Total Pendapatan</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -107,80 +140,75 @@ function getBulan($bln){
 			?>
 		</tbody>
 	</table>
+    </div>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script>
+    const chart = Highcharts.chart('container', {
+        title: {
+            text: 'GRAFIK PENJUALAN'
+        },
+        subtitle: {
+            text: ''
+        },
+        xAxis: {
+            categories: [<?php  $surat = mysqli_query($koneksi,"SELECT SUM(jumlah_pesanan) as total, tgl_transaksi   FROM keranjang,transaksi WHERE keranjang.id_transaksi=transaksi.id_transaksi AND MONTH(tgl_transaksi) BETWEEN '$_POST[dari_bulan]' AND '$_POST[sampai_bulan]' AND YEAR(tgl_transaksi)='$_POST[tahun]'  GROUP BY MONTH(tgl_transaksi)");
+                while($row=mysqli_fetch_array($surat)){	
+                $tahun = explode("-",$row['tgl_transaksi']); ?> 
+                "<?=bln_aja($row['tgl_transaksi']);?> <?=$tahun[0];?>",<?php };?>
+            ]
+        },
+        series: [{
+            type: 'column',
+            colorByPoint: true,
+            data: [
+                <?php $surat = mysqli_query($koneksi,"SELECT SUM(jumlah_pesanan) as total, tgl_transaksi   FROM keranjang,transaksi WHERE keranjang.id_transaksi=transaksi.id_transaksi AND MONTH(tgl_transaksi) BETWEEN '$_POST[dari_bulan]' AND '$_POST[sampai_bulan]' AND YEAR(tgl_transaksi)='$_POST[tahun]'  GROUP BY MONTH(tgl_transaksi)");
+                while($row=mysqli_fetch_array($surat)){	?> 
+                <?=$row['total'];?>,
+                <?php };?>
+            ],
+            showInLegend: false
+        }]
+    });
 
+    document.getElementById('plain').addEventListener('click', () => {
+        chart.update({
+            chart: {
+                inverted: false,
+                polar: false
+            },
+            subtitle: {
+                text: 'Plain'
+            }
+        });
+    });
 
-	<script>
-		var ctx = document.getElementById("myChart").getContext('2d');
-		var myChart = new Chart(ctx, {
-			type: 'bar',
-			data: {
-				labels: [
-					<?php 
-					$surat = mysqli_query($koneksi,"SELECT SUM(jumlah_pesanan) as total, tgl_transaksi   FROM keranjang,transaksi WHERE keranjang.id_transaksi=transaksi.id_transaksi AND MONTH(tgl_transaksi) BETWEEN '$_POST[dari_bulan]' AND '$_POST[sampai_bulan]' AND YEAR(tgl_transaksi)='$_POST[tahun]'  GROUP BY MONTH(tgl_transaksi)");
-					while($row=mysqli_fetch_array($surat)){	
-$tahun = explode("-",$row['tgl_transaksi']);
-						?> 
+    document.getElementById('inverted').addEventListener('click', () => {
+        chart.update({
+            chart: {
+                inverted: true,
+                polar: false
+            },
+            subtitle: {
+                text: 'Inverted'
+            }
+        });
+    });
 
-					"<?=bln_aja($row['tgl_transaksi']);?> <?=$tahun[0];?>",
-
-					<?php };?>
-				],
-				datasets: [{
-					label: '',
-					data: [
-
-
-					<?php 
-					$surat = mysqli_query($koneksi,"SELECT SUM(jumlah_pesanan) as total, tgl_transaksi   FROM keranjang,transaksi WHERE keranjang.id_transaksi=transaksi.id_transaksi AND MONTH(tgl_transaksi) BETWEEN '$_POST[dari_bulan]' AND '$_POST[sampai_bulan]' AND YEAR(tgl_transaksi)='$_POST[tahun]'  GROUP BY MONTH(tgl_transaksi)");
-					while($row=mysqli_fetch_array($surat)){	?> 
-
-					<?=$row['total'];?>,
-
-					<?php };?>
-
-					],
-					backgroundColor: [
-					'rgba(54, 162, 235, 0.2)',
-					'rgba(54, 162, 235, 0.2)',
-					'rgba(54, 162, 235, 0.2)',
-					'rgba(54, 162, 235, 0.2)',
-					'rgba(54, 162, 235, 0.2)',
-					'rgba(54, 162, 235, 0.2)',
-					'rgba(54, 162, 235, 0.2)',
-					'rgba(54, 162, 235, 0.2)',
-					'rgba(54, 162, 235, 0.2)',
-					'rgba(54, 162, 235, 0.2)',
-					'rgba(54, 162, 235, 0.2)',
-					'rgba(54, 162, 235, 0.2)'
-					],
-					borderColor: [
-					'rgba(255,99,132,1)',
-					'rgba(255,99,132,1)',
-					'rgba(255,99,132,1)',
-					'rgba(255,99,132,1)',
-					'rgba(255,99,132,1)',
-					'rgba(255,99,132,1)',
-					'rgba(255,99,132,1)',
-					'rgba(255,99,132,1)',
-					'rgba(255,99,132,1)',
-					'rgba(255,99,132,1)',
-					'rgba(255,99,132,1)',
-					'rgba(255,99,132,1)'
-
-					],
-					borderWidth: 1
-				}]
-			},
-			options: {
-				scales: {
-					yAxes: [{
-						ticks: {
-							beginAtZero:true
-						}
-					}]
-				}
-			}
-		});
-	</script>
+    document.getElementById('polar').addEventListener('click', () => {
+        chart.update({
+            chart: {
+                inverted: false,
+                polar: true
+            },
+            subtitle: {
+                text: 'Polar'
+            }
+        });
+    });
+    </script>
 </body>
 </html>

@@ -218,7 +218,7 @@ margin-top: 18px;
 
 <table width="100%" border="0">
   <tr>
-    <td> Bandar Lampung, <?=date("d-M-Y");?> <br><br> Mengetahui, <br>Kepala GAPOKTAN  <br><br><br><br> NONI</td>
+    <td> Gading Rejo, <?=date("d-M-Y");?> <br><br> Mengetahui, <br>Kepala GAPOKTAN  <br><br><br><br> NONI</td>
     <td><br><br><br> Admin <br><br><br><br><br> Sri Lestari</td>
   </tr>
 </table>

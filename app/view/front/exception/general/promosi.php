@@ -24,7 +24,19 @@
 										<img src="<?=base_url();?>/resources/public/images/<?php echo $row['gambar'];?>" style="height:200px;width:100%">
 									</div>
 									<div class="col-md-6">
-										<p class="card-text"><?php echo $row['isi_halaman'];?></p>
+										
+										<p class="card-text">
+											 <?php  
+												$url = base_url()."/front/general/statis/detail_promosi/".$row['id_halaman'];
+												if (strlen($row["isi_halaman"])<=200) {
+													echo $row["isi_halaman"];
+												}
+												else{
+													$y=substr($row["isi_halaman"],0,200) . ' <br><br><a href='.$url.'>READMORE</a>';
+													echo $y;
+												}
+                                			?>
+										</p>
 									</div>
 								</div>
 							</div>

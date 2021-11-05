@@ -15,13 +15,13 @@ ob_start();
 	<div class="row">
 		<?php $no = 0; foreach ($galery as $row) { $no++; ?>
             <!-- Center column -->
-            <div class="col-md-2">
+            <div class="col-md-6">
                 <div class="blog-post">
                     <div class="blog-content">
                         <h3 class="blog-title"><?=$row['judul'];?></h3>
 						<div class="blog-text">
 							<div class="box-body">
-								<img class="img-fluid" src="<?=base_url();?>/resources/public/images/<?php echo $row['gambar'];?>" style="width:150px; height:150px;">
+								<img class="img-fluid" src="<?=base_url();?>/resources/public/images/<?php echo $row['gambar'];?>" style="width:500px; height:300px;">
 								<p class="card-text"><?php echo $row['isi_galery'];?></p>
                                 <h3 class="blog-title"><?=$row['tgl_posting'];?></h3>
 							</div>

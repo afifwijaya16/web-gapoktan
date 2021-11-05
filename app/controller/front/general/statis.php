@@ -98,26 +98,41 @@ class statis extends shl_controller
 	{
         shl_form::rule("komentar", "required", "Form");
 
+		shl_upload::input_name("gambar")
+        		  ->path("../resources/public/images/");
 
         if (shl_form::is_valid())
         {
             $data = $_POST;
-
             $data['id_pelanggan'] = shl_session::get("id_pelanggan");
             $data['id_produk']  = url_segment(5);
             $data['status_komentar'] = 'Komentar';
 
+            if (!empty($_FILES['gambar']) && shl_upload::upload())
+            {
+            	$data['gambar'] = shl_upload::file_name();
+            }
 
             if (m_statis::insert_komentar($data))
-            {
-                self::$data['pesan'] = "Pesanan Kami Terima dan Kami akan segera menghubungi anda, Terimakasih";
-            }
+			{
+				self::$data['pesan'] = "Pesanan Kami Terima dan Kami akan segera menghubungi anda, Terimakasih";
+			}
             
         }
 
-
-
 		shl_loader::view("front/exception/general/detail_produk", self::$data);
+	}
+
+	function detail_promosi()
+	{
+
+
+		$data = $_POST;
+		$data['id_halaman']  = url_segment(5);
+
+
+
+		shl_loader::view("front/exception/general/promosi_detail", self::$data);
 	}
 
 

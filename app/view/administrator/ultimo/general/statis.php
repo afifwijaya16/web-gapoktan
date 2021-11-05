@@ -3,12 +3,12 @@ ob_start();
 ?>
 <section class="content-header">
     <h1>
-        Data Produk
+        Data Promosi
     </h1>
     <ol class="breadcrumb">
         <ol class="breadcrumb">
             <li><a href="<?=base_url();?>/administrator/dashboard">Home</a></li>
-            <li class="active">Data Produk</li>
+            <li class="active">Data Promosi</li>
         </ol>
     </ol>
 </section>
@@ -20,7 +20,7 @@ ob_start();
     <!--\\\\\\\ container  start \\\\\\-->
     <div class="box">
         <div class="box-header">
-            <h3 class="box-title">Data Galery</h3>
+            <h3 class="box-title">Promosi GAPOKTAN</h3>
         </div>
 
         <div class="row">
