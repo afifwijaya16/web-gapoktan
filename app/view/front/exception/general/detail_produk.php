@@ -111,7 +111,7 @@ $update = shl_db::table("produk")->where("id_produk", $pro['id_produk'])->update
 					<div role="tabpanel" class="tab-pane" id="Tab2">
 						<?php  if (!empty(shl_session::get("id_pelanggan"))) { ?>
 
-						<form method="POST" class="contact-form white" action="#">
+						<form method="POST" class="contact-form white" action="#" enctype="multipart/form-data">
 
 							<div class="table-responsive">
 
@@ -170,7 +170,7 @@ $update = shl_db::table("produk")->where("id_produk", $pro['id_produk'])->update
 							<label>Review<span class="required">*</span></label>
 							<textarea class="form-control input-lg" name="komentar"></textarea>
 							<label>Gambar<span class="required">*</span></label>
-							<input type="file" name="gambar" class="form-control">
+							<input type="file" name="gambar_komentar" class="form-control" require>
 							<div>
 								<button class="btn btn-lg">Submit Review</button>
 							</div>
@@ -192,6 +192,7 @@ $update = shl_db::table("produk")->where("id_produk", $pro['id_produk'])->update
 
 						<div class="person-info">
 							<h3 class="person-name"><?=$row['nama'];?></h3>
+							<img src="<?=base_url();?>/resources/public/images/<?=$row['gambar_komentar'];?>"  height="100" width="10 0" />
 							<div class="product-item-rating"> <?php for($tgl=1; $tgl<=$row['rating']; $tgl++){ ?><i
 									class="icon icon-star-fill"></i> <?php };?></div>
 							<div class="person-subname"><i><?=tgl_indo($row['tgl_komentar']);?></i></div>
@@ -202,12 +203,17 @@ $update = shl_db::table("produk")->where("id_produk", $pro['id_produk'])->update
 
 					</div>
 					<div role="tabpanel" class="tab-pane" id="Tab4">
-						<?php 
-												$testimoni = shl_db::table("komentar")->join("pelanggan","pelanggan.id_pelanggan","komentar.id_pelanggan")->where("id_produk",url_segment(5))->where("id_balasan", 0)->where("komentar.status_komentar","Testimoni")->get();
-												foreach ($testimoni as $row) { ?>
+						<?php $testimoni = shl_db::table("komentar")->join("pelanggan","pelanggan.id_pelanggan","komentar.id_pelanggan")->where("id_produk",url_segment(5))->where("id_balasan", 0)->where("komentar.status_komentar","Testimoni")->get();
+							foreach ($testimoni as $row) { ?>
 
 						<div class="person-info">
 							<h3 class="person-name"><?=$row['nama'];?></h3>
+							<img src="<?=base_url();?>/resources/public/images/<?=$row['gambar_komentar'];?>" class="zoom"
+							alt=""
+							data-zoom-image="<?=base_url();?>/resources/public/images/<?=$row['gambar_komentar'];?>" />
+						<div class="dblclick-text"><span>Double click for zoom</span></div>
+						<a href="images/products/large/product-gallery-1.jpg" class="zoom-link"><i
+								class="icon icon-zoomin"></i></a>
 							<div class="product-item-rating"> <?php for($tgl=1; $tgl<=$row['rating']; $tgl++){ ?><i
 									class="icon icon-star-fill"></i> <?php };?></div>
 							<div class="person-subname"><i><?=tgl_indo($row['tgl_komentar']);?></i></div>
